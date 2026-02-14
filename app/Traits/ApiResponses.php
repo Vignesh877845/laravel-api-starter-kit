@@ -6,7 +6,7 @@ use Illuminate\Http\JsonResponse;
 
 trait ApiResponses
 {
-    public function success($data, string $message, int $code = 200): JsonResponse
+    public function success($data = [], string $message = 'Success', int $code = 200): JsonResponse
     {
         return response()->json([
             'success'   => true,
@@ -15,11 +15,12 @@ trait ApiResponses
         ], $code);
     }
 
-    public function error($data = null, string $message, int $code = 400){
+    public function error(string $message, int $code = 400, $errors = []): JsonResponse
+    {
         return response()->json([
             'success'   => false,
             'message'   => $message,
-            'data'      => $data
+            'errors'    => $errors
         ], $code);
     }
 }
