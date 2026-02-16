@@ -12,6 +12,7 @@ class UserCredential extends Model
 
     protected $fillable = [
         'user_id',
+        'username',
         'provider',      
         'provider_id',   
         'password',      
