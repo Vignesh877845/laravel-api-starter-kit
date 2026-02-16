@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('user_credentials', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
+            $table->string('usename')->unique()->nullable();
             $table->string('provider')->default('local');
             $table->string('provider_id')->nullable();
             $table->string('password')->nullable();
