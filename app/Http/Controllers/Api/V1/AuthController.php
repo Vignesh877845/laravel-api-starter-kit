@@ -23,7 +23,7 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
-       try {
+        try {
             $user = $this->authService->register($request->validated());
             return $this->success(UserResource::make($user), 'User registered successfully', 201);
         } catch (\Exception $e) {
@@ -46,14 +46,20 @@ class AuthController extends Controller
         ], 'Login successful');
     }
 
+    public function me(Request $request)
+    {
+        return $this->success(UserResource::make($request->user()), 'User details retrieved successfully');
+    }
+
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
         return $this->success([], 'Logged out successfully');
     }
 
-    public function me(Request $request)
+    public function logoutForAllDevices(Request $request)
     {
-        return $this->success(UserResource::make($request->user()), 'User details retrieved successfully');
+        $this->authService->logoutFromAllDevices($request->user());
+        return $this->success([], 'Logged out from all devices successfully');
     }
 }
