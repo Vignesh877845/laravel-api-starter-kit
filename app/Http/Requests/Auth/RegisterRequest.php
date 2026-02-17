@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Password;
 
 class RegisterRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class RegisterRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,17 +26,17 @@ class RegisterRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'phone' => ['nullable', 'string', 'max:20'],
-
             'username' => ['required', 'string', 'max:50', 'alpha_dash', 'unique:user_credentials,username'],
-            'password' => ['required', 'confirmed', 'min:8'],
+            'password' => ['required', 'confirmed', Password::defaults()],
+            'password_confirmation' => ['required', 'string', 'min:8'],
         ];
     }
 
     public function messages(): array
     {
         return [
-            'username.unique' => 'Indha username already eduthutaanga. Vera try pannunga.',
-            'email.unique' => 'Indha email already register aagirukku.',
+            'username.unique' => 'This username is already taken. Please try another.',
+            'email.unique' => 'This email is already registered. Please sign in instead.',
         ];
     }
 }

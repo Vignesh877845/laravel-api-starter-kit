@@ -34,7 +34,7 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         $credentials = $request->validated();
-        $data = $this->authService->login($credentials['identifier'], $credentials['password']);
+        $data = $this->authService->login($credentials['username'], $credentials['password']);
 
         if (!$data) {
             return $this->error('Invalid credentials', 401);

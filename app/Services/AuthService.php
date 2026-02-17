@@ -44,9 +44,9 @@ class AuthService
 
     public function login(string $identifier, string $password): ?array
     {
-        $credential = UserCredential::with('users')
+        $credential = UserCredential::with('user')
                      ->where('username', $identifier)
-                     ->orWhereHas('users', function($q) use ($identifier){
+                     ->orWhereHas('user', function($q) use ($identifier){
                             $q->where('email', $identifier);
                      })->first();
 
