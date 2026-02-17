@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Services;
 
@@ -26,10 +26,10 @@ class AuthService
             ]);
 
             UserCredential::create([
-                'user_id'       => $user->id,
-                'username'     => $data['username'] ?? null,
-                'provider'      => 'local',
-                'password'      => Hash::make($data['password']),
+                'user_id'   => $user->id,
+                'username'  => $data['username'] ?? null,
+                'provider'  => 'local',
+                'password'  => Hash::make($data['password']),
             ]);
 
             DB::commit();
@@ -45,10 +45,10 @@ class AuthService
     public function login(string $identifier, string $password): ?array
     {
         $credential = UserCredential::with('user')
-                     ->where('username', $identifier)
-                     ->orWhereHas('user', function($q) use ($identifier){
-                            $q->where('email', $identifier);
-                     })->first();
+            ->where('username', $identifier)
+            ->orWhereHas('user', function ($q) use ($identifier) {
+                $q->where('email', $identifier);
+            })->first();
 
         if (!$credential || !Hash::check($password, $credential->password)) {
             return null;
@@ -60,5 +60,15 @@ class AuthService
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return ['user' => $user, 'token' => $token];
+    }
+
+    public function logout($user): bool
+    {
+        return $user->currentAccessToken()->delete();
+    }
+
+    public function logoutFromAllDevices($user): bool
+    {
+        return (bool) $user->tokens()->delete();
     }
 }
