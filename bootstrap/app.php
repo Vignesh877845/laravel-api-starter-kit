@@ -6,6 +6,8 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Mockery\Generator\Method;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -53,6 +55,15 @@ return Application::configure(basePath: dirname(__DIR__))
                     'message' => 'Validation error',
                     'errors' => $e->errors()
                 ], 422);
+            }
+        });
+
+        $exceptions->render(function (MethodNotAllowedHttpException $e, Request $request){
+            if($request->is('api/*')){
+                return response()->json([
+                    'status' => false,
+                    'message' => 'The ' . $request->method() . ' method is not allowed for this endpoint. Please check the API documentation for allowed methods.'
+                ], 405);
             }
         });
 
