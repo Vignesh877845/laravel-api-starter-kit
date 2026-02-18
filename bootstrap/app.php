@@ -62,7 +62,7 @@ return Application::configure(basePath: dirname(__DIR__))
             if($request->is('api/*')){
                 return response()->json([
                     'status' => false,
-                    'message' => 'The ' . $request->method() . ' method is not allowed for this endpoint. Please check the API documentation for allowed methods.'
+                    'message' => 'Method not allowed.'
                 ], 405);
             }
         });
