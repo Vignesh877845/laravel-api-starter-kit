@@ -17,25 +17,49 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call([
+            RolePermissionSeeder::class,
+        ]);
+
         $admin = User::create([
-            'name' => 'Admin User',
-            'email' => 'admin@example.com',
-            'phone' => '9876543210',
-            'status' => 'active',
+            'name'      => 'Super Admin',
+            'email'     => 'superadmin@example.com',
+            'phone'     => '9876543210',
+            'status'    => 'active',
         ]);
 
         UserCredential::create([
-            'user_id' => $admin->id,
-            'username' => 'admin',
-            'provider' => 'local',
-            'password' => Hash::make('password'),
+            'user_id'       => $admin->id,
+            'username'      => 'superadmin',
+            'provider'      => 'local',
+            'password'      => Hash::make('password'),
             'last_login_at' => now(),
         ]);
 
-        echo "✅ Admin User Created: admin@example.com / password \n";
+        $user = User::create([
+            'name'      => 'Test User',
+            'email'     => 'user@example.com',
+            'phone'     => '9876543211',
+            'status'    => 'active',
+        ]);
+
+        UserCredential::create([
+            'user_id'   => $user->id,
+            'username'  => 'testuser',
+            'provider'  => 'local',
+            'password'  => Hash::make('password'),
+        ]);
+
+        if (config('features.roles_permission')) {
+            $admin->assignRole('Super Admin');
+            $user->assignRole('User');
+            $this->command->info('Roles Assigned: Super Admin and User');
+        } else {
+            $this->command->warn('Roles feature disabled. Users created without roles.');
+        }
 
         // User::factory(10)->has(UserCredential::factory())->create();
-
-        echo "✅ 1 Sample User Created with Credentials \n";
+        $this->command->info('Super Admin User Created: superadmin@example.com / password');
+        $this->command->info('Test User Created: user@example.com / password');
     }
 }
