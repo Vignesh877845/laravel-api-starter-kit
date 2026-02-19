@@ -70,6 +70,14 @@ class AuthService
         return ['user' => $user, 'token' => $token];
     }
 
+    public function updateProfile(User $user, array $data): User
+    {
+        unset($data['password']);
+        $user->update($data);
+
+        return $user;
+    }
+
     public function logout($user): bool
     {
         return $user->currentAccessToken()->delete();

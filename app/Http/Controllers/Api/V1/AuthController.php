@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Auth\LoginRequest;
 use App\Http\Requests\Api\V1\Auth\RegisterRequest;
+use App\Http\Requests\Api\V1\Auth\UpdateProfileRequest;
 use App\Http\Resources\UserResource;
 use App\Services\AuthService;
 use App\Traits\ApiResponses as ApiResponseTraits;
@@ -51,6 +52,12 @@ class AuthController extends Controller
         return $this->success(UserResource::make($request->user()), 'User details retrieved successfully');
     }
 
+    public function updateProfile(UpdateProfileRequest $request)
+    {
+        $user = $this->authService->updateProfile($request->user(), $request->validated());
+        return $this->success(UserResource::make($user), 'Profile updated successfully');
+    }
+    
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
