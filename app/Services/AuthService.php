@@ -25,12 +25,15 @@ class AuthService
                 'status'    => 'active',
             ]);
 
-            UserCredential::create([
-                'user_id'   => $user->id,
+            $user->credentials()->create([
                 'username'  => $data['username'] ?? null,
                 'provider'  => 'local',
                 'password'  => Hash::make($data['password']),
             ]);
+            
+            if(config('features.roles_permission')){
+                $user->assignRole('User');
+            }
 
             DB::commit();
 
@@ -57,6 +60,11 @@ class AuthService
         $credential->update(['last_login_at' => now()]);
 
         $user = $credential->user;
+
+        if(config('features.roles_permission')){
+            $user->load('roles', 'permissions');
+        }
+
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return ['user' => $user, 'token' => $token];
