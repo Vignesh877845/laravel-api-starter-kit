@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use App\Traits\HasUuidPrimaryKey;
-use Spatie\Permission\Models\Role as SpatieRole;
+use Illuminate\Database\Eloquent\Model;
 
-class Role extends SpatieRole
+class BaseModel extends Model
 {
     use HasUuidPrimaryKey;
 }

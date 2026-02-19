@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
+use App\Traits\HasUuidPrimaryKey;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
-class UserCredential extends Model
+class UserCredential extends BaseModel
 {
-    use HasFactory, HasUuids;
+    use HasFactory, HasUuidPrimaryKey;
 
     protected $fillable = [
         'user_id',
