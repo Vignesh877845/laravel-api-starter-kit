@@ -23,10 +23,10 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
+            'name'  => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'phone' => ['nullable', 'string', 'max:20'],
-            'username' => ['required', 'string', 'max:50', 'alpha_dash', 'unique:user_credentials,username'],
+            'username' => ['required', 'string', 'min:3', 'max:30', 'unique:user_credentials,username', 'regex:/^[a-zA-Z0-9._@]+$/'],
             'password' => ['required', 'confirmed', Password::defaults()],
             'password_confirmation' => ['required', 'string', 'min:8'],
         ];
@@ -36,6 +36,7 @@ class RegisterRequest extends FormRequest
     {
         return [
             'username.unique' => 'This username is already taken. Please try another.',
+            'username.regex' => 'Username can only contain letters, numbers, dots (.), underscores (_), and the @ symbol. Spaces are not allowed.',
             'email.unique' => 'This email is already registered. Please sign in instead.',
         ];
     }
