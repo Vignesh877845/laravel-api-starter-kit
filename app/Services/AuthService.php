@@ -25,7 +25,7 @@ class AuthService
                 'status'    => 'active',
             ]);
 
-            $user->credentials()->create([
+            $user->credential()->create([
                 'username'  => $data['username'] ?? null,
                 'provider'  => 'local',
                 'password'  => Hash::make($data['password']),
