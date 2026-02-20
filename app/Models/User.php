@@ -50,7 +50,7 @@ class User extends Authenticatable
         ];
     }
 
-    public function credentials()
+    public function credential()
     {
         return $this->hasOne(UserCredential::class);
     }
