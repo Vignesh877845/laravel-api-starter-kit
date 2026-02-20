@@ -55,6 +55,11 @@ class AuthController extends Controller
     public function updateProfile(UpdateProfileRequest $request)
     {
         $user = $this->authService->updateProfile($request->user(), $request->validated());
+
+        if($user->wasChanged('email')){
+            return $this->success(null, 'Email updated. Please login again to continue.');
+        }
+
         return $this->success(UserResource::make($user), 'Profile updated successfully');
     }
     

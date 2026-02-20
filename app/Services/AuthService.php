@@ -74,6 +74,10 @@ class AuthService
     {
         unset($data['password']);
         $user->update($data);
+        
+        if($user->wasChanged('email')){
+            $user->tokens()->delete();
+        }
 
         return $user;
     }
