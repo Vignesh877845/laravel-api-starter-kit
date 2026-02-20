@@ -82,6 +82,21 @@ class AuthService
         return $user;
     }
 
+    public function changePassword(User $user, array $data): bool
+    {
+        if(!Hash::check($data['current_password'], $user->credential->password)){
+            return false;
+        }
+
+        $user->credential->update([
+            'password' => Hash::make($data['password'])
+        ]);
+
+        $user->tokens()->delete();
+
+        return true;
+    }
+
     public function logout($user): bool
     {
         return $user->currentAccessToken()->delete();

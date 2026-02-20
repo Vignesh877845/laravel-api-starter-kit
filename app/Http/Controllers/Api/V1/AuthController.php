@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Auth\LoginRequest;
 use App\Http\Requests\Api\V1\Auth\RegisterRequest;
 use App\Http\Requests\Api\V1\Auth\UpdateProfileRequest;
+use App\Http\Requests\Api\V1\Auth\ChangePasswordRequest;
 use App\Http\Resources\UserResource;
 use App\Services\AuthService;
 use App\Traits\ApiResponses as ApiResponseTraits;
@@ -63,6 +64,17 @@ class AuthController extends Controller
         return $this->success(UserResource::make($user), 'Profile updated successfully');
     }
     
+    public function changePassword(ChangePasswordRequest $request)
+    {
+        $status = $this->authService->changePassword($request->user(), $request->validated());
+
+        if(!$status){
+            return $this->error('Current password is incorrect', 422);
+        }
+
+        return $this->success(null, 'Password updated. Please login again');
+    }
+
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
