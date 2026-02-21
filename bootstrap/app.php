@@ -6,7 +6,6 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-use Mockery\Generator\Method;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -33,7 +32,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->render(function (AuthenticationException $e, Request $request) {
             if ($request->is('api/*')) {
                 return response()->json([
-                    'status' => false,
+                    'success' => false,
                     'message' => 'Unauthenticated'
                 ], 401);
             }
@@ -42,7 +41,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->render(function (NotFoundHttpException $e, Request $request) {
             if ($request->is('api/*')) {
                 return response()->json([
-                    'status' => false,
+                    'success' => false,
                     'message' => 'Resource not found'
                 ], 404);
             }
@@ -51,7 +50,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->render(function (ValidationException $e, Request $request) {
             if ($request->is('api/*')) {
                 return response()->json([
-                    'status' => false,
+                    'success' => false,
                     'message' => 'Validation error',
                     'errors' => $e->errors()
                 ], 422);
@@ -61,7 +60,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->render(function (MethodNotAllowedHttpException $e, Request $request){
             if($request->is('api/*')){
                 return response()->json([
-                    'status' => false,
+                    'success' => false,
                     'message' => 'Method not allowed.'
                 ], 405);
             }
