@@ -1,17 +1,63 @@
-# Laravel API Starter Kit (v1.0.0)
+# Laravel API Starter Kit
 
-## 📌 Project Overview
-A production-ready Laravel API template designed for scalability and maintainability. This starter kit implements modern best practices, follows a structured Service Layer Pattern, UUID-based primary keys, and Role-Based Access Control (RBAC).
+[![Laravel Version](https://img.shields.io/badge/Laravel-12.x-red)](https://laravel.com)
+[![PHP Version](https://img.shields.io/badge/PHP-8.2%2B-blue)](https://php.net)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-## 🛠 Core Features
-* **Clean Architecture:** Strict separation of concerns using a dedicated Service layer to handle business logic.
-* **Authentication:** Token-based authentication powered by Laravel Sanctum.
-* **UUID Primary Keys:** Core models use UUIDs instead of auto-increment IDs for improved security and distributed system compatibility.
-* **Role-Based Access Control:** Fully integrated with the Spatie Permission package for granular access management.
-* **Standardized API Responses:** Implements a custom `ApiResponses` trait to ensure a consistent JSON structure across all endpoints.
-* **Soft Deletes:** Optional model-level soft delete support to prevent accidental data loss.
+A production-ready Laravel API template designed for **Clean Architecture**, **Scalability**, and **Maintainability**. This kit leverages the latest **Laravel 12** features to provide a robust foundation for modern web applications.
 
-## 🔐 Authentication Flow
-* **Access:** Use the provided registration or login endpoints to authenticate.
-* **Automation:** On a successful login, a post-response script automatically updates the `auth_token` in the collection variables.
-* **Authorization:** All protected endpoints are pre-configured to use the `{{auth_token}}` variable as a Bearer token.
+---
+
+## Key Dependencies & Features
+
+* **Laravel 12 Framework:** Built on Laravel 12 for modern API development.
+* **Service Layer Pattern:** Dedicated services to isolate business logic from controllers.
+* **Authentication (Sanctum):** Lightweight, secure token-based authentication with multi-device support.
+* **RBAC (Spatie Permission):** Powerful role and permission management integrated out-of-the-box.
+* **UUID Security:** Core models utilize UUIDs as primary keys for distributed system compatibility.
+* **Auto-Docs (Scramble):** Zero-config OpenAPI documentation accessible at `/docs/api`.
+* **Custom CLI:** Includes a `make:api` command to scaffold versioned API components instantly.
+
+---
+
+## Architecture Overview
+
+- Versioned API structure (Api/V1)
+- Service layer separation
+- Form Request validation
+- Role-based authorization
+- UUID-based models
+
+---
+
+### Controller Structure
+
+- `ApiController` → Base controller for API endpoints (uses ApiResponses trait for standardized JSON responses).
+- `Controller` → Base controller for Web (Blade/Inertia) controllers.
+
+---
+
+## Quick Installation
+
+1.  **Clone the project:**
+    ```bash
+    git clone [https://github.com/Vignesh877845/laravel-api-starter-kit.git](https://github.com/Vignesh877845/laravel-api-starter-kit.git)
+    cd laravel-api-starter-kit
+    ```
+
+2.  **Install & Automate Setup:**
+    ```bash
+    composer setup
+    ```
+
+> **Note:** The `composer setup` command automatically handles `.env` creation, key generation, and database migrations with seeding.
+
+---
+
+## Custom CLI Usage
+
+Generate versioned API components:
+
+```bash
+php artisan make:api controller User --ver=V1
+php artisan make:api request UserStoreRequest --ver=V1
