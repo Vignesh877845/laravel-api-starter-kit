@@ -41,7 +41,7 @@ A production-ready Laravel API template designed for **Clean Architecture**, **S
 
 1.  **Clone the project:**
     ```bash
-    git clone [https://github.com/Vignesh877845/laravel-api-starter-kit.git](https://github.com/Vignesh877845/laravel-api-starter-kit.git)
+    git clone https://github.com/Vignesh877845/laravel-api-starter-kit.git
     cd laravel-api-starter-kit
     ```
 
@@ -61,3 +61,6 @@ Generate versioned API components:
 ```bash
 php artisan make:api controller User --ver=V1
 php artisan make:api request UserStoreRequest --ver=V1
+```
+
+> **Note:** The `--ver` option specifies the API version. It is optional and defaults to `V1` if omitted. To generate components for another version (e.g., `V2`), use `--ver=V2`.
