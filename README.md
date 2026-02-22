@@ -37,6 +37,13 @@ A production-ready Laravel API template designed for **Clean Architecture**, **S
 
 ---
 
+## Requirements
+
+* **PHP:** ^8.2
+* **Laravel:** ^12.0
+
+---
+
 ## Quick Installation
 
 1.  **Clone the project:**
