@@ -61,6 +61,8 @@ class AuthService
 
         $user = $credential->user;
 
+        $user->setRelation('credential', $credential);
+
         if(config('features.roles_permission')){
             $user->load('roles', 'permissions');
         }
