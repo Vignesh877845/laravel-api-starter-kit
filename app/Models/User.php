@@ -4,7 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\UserCredential;
-use App\Traits\HasUuidPrimaryKey;
+use App\Traits\HasDynamicPrimaryKey;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -14,7 +14,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasUuidPrimaryKey, SoftDeletes, HasApiTokens;
+    use HasFactory, Notifiable, HasDynamicPrimaryKey, SoftDeletes, HasApiTokens;
 
     use HasRoles {
         hasRole as traitHasRole;
