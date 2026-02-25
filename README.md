@@ -1,7 +1,7 @@
 # Laravel API Starter Kit
 
 [![Laravel Version](https://img.shields.io/badge/Laravel-12.x-red)](https://laravel.com)
-[![PHP Version](https://img.shields.io/badge/PHP-8.2%2B-blue)](https://php.net)
+[![PHP Version](https://img.shields.io/badge/PHP-8.4%2B-blue)](https://php.net)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
 A production-ready Laravel API template designed for **Clean Architecture**, **Scalability**, and **Maintainability**. This kit leverages the latest **Laravel 12** features to provide a robust foundation for modern web applications.
@@ -14,7 +14,7 @@ A production-ready Laravel API template designed for **Clean Architecture**, **S
 * **Service Layer Pattern:** Dedicated services to isolate business logic from controllers.
 * **Authentication (Sanctum):** Lightweight, secure token-based authentication with multi-device support.
 * **RBAC (Spatie Permission):** Powerful role and permission management integrated out-of-the-box.
-* **UUID Security:** Core models utilize UUIDs as primary keys for distributed system compatibility.
+* **Flexible Primary Key:** Core models support both UUID and BigInt (ID). Easily toggle between them via config for project-specific needs.
 * **Auto-Docs (Scramble):** Zero-config OpenAPI documentation accessible at `/docs/api`.
 * **Custom CLI:** Includes a `make:api` command to scaffold versioned API components instantly.
 
@@ -26,7 +26,7 @@ A production-ready Laravel API template designed for **Clean Architecture**, **S
 - Service layer separation
 - Form Request validation
 - Role-based authorization
-- UUID-based models
+- Dynamic ID-based models (UUID/Auto-increment)
 
 ---
 
@@ -39,8 +39,9 @@ A production-ready Laravel API template designed for **Clean Architecture**, **S
 
 ## Requirements
 
-* **PHP:** ^8.2
+* **PHP:** ^8.4
 * **Laravel:** ^12.0
+* **Composer:** ^2.0
 
 ---
 
@@ -56,6 +57,12 @@ A production-ready Laravel API template designed for **Clean Architecture**, **S
     ```bash
     composer setup
     ```
+
+3. **Frontend Setup (Optional):**
+   If you are using the Inertia + React stack, install the dependencies and start the development environment:
+   ```bash
+   npm install && composer dev
+
 
 > **Note:** The `composer setup` command automatically handles `.env` creation, key generation, and database migrations with seeding.
 

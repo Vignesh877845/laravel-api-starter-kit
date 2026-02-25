@@ -21,11 +21,19 @@ class UserResource extends JsonResource
             'phone'     => $this->phone,
             'status'    => $this->status,
 
-            'username'  => $this->whenLoaded('credentials', function () {
-                return $this->credentials->username;
+            'username'  => $this->whenLoaded('credential', function () {
+                return $this->credential->username;
+            }),
+            
+           'roles'      => $this->whenLoaded('roles', function () {
+                return $this->roles->pluck('name');
             }),
 
-            'joined_at' => $this->created_at->toIso8601String(),
+            'permissions'=> $this->whenLoaded('permissions', function () {
+                return $this->getAllPermissions()->pluck('name');
+            }),
+
+            'joined_at'  => $this->created_at->toIso8601String(),
         ];
     }
 }
