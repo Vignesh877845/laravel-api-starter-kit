@@ -1,7 +1,7 @@
 # Laravel API Starter Kit
 
 [![Laravel Version](https://img.shields.io/badge/Laravel-12.x-red)](https://laravel.com)
-[![PHP Version](https://img.shields.io/badge/PHP-8.2%2B-blue)](https://php.net)
+[![PHP Version](https://img.shields.io/badge/PHP-8.4%2B-blue)](https://php.net)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
 A production-ready Laravel API template designed for **Clean Architecture**, **Scalability**, and **Maintainability**. This kit leverages the latest **Laravel 12** features to provide a robust foundation for modern web applications.
@@ -39,8 +39,9 @@ A production-ready Laravel API template designed for **Clean Architecture**, **S
 
 ## Requirements
 
-* **PHP:** ^8.2
+* **PHP:** ^8.4
 * **Laravel:** ^12.0
+* **Composer:** ^2.0
 
 ---
 
