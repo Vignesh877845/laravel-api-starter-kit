@@ -20,6 +20,25 @@ A production-ready Laravel API template designed for **Clean Architecture**, **S
 
 ---
 
+## Feature Configuration
+
+This starter kit is designed to be highly adaptable. You can toggle core architectural features directly from your `.env` file without modifying the source code.
+
+| Feature | Environment Variable | Default | Description |
+| :--- | :--- | :--- | :--- |
+| **Dynamic UUID** | `USE_UUID` | `false` | When `true`, all models and migrations will switch from Auto-incrementing IDs to UUIDs. |
+| **RBAC System** | `ROLES_PERMISSION` | `true` | Enables/Disables the Spatie-based Role and Permission middleware and database checks globally. |
+
+### How to use:
+Simply update your `.env` file and run migrations:
+
+```bash
+# Example: Switching to UUID-based architecture
+
+USE_UUID=true
+php artisan migrate:fresh --seed
+```
+---
 ## Architecture Overview
 
 - Versioned API structure (Api/V1)
