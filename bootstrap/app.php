@@ -17,9 +17,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->api(prepend: [
-            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-        ]);
+
+        $middleware->statefulApi();
 
         $middleware->redirectGuestsTo(function (Request $request){
             if($request->is('api/*')){
